@@ -368,7 +368,8 @@ visitors &lt;- read_csv(&quot;data/UK-visitor-numbers.csv&quot;)</code></pre>
 <h1>Wrangling Data</h1>
 <div id="question-1" class="section level2">
 <h2>Question 1</h2>
-<p><em>How many tourist attractions are there in the data set?</em></p>
+<p><em>How many tourist attractions are there in the data set?
+348</em></p>
 <pre class="r"><code>visitors %&gt;% count()</code></pre>
 <pre><code>## # A tibble: 1 × 1
 ##       n
@@ -380,7 +381,22 @@ visitors &lt;- read_csv(&quot;data/UK-visitor-numbers.csv&quot;)</code></pre>
 the data set by <code>region</code>.</em></p>
 <pre class="r"><code># Delete the comment &#39;#&#39; symbol at the start of the next line and complete the code. 
 
-#visitors %&gt;% count(_____)</code></pre>
+visitors %&gt;% count(region, sort = TRUE)</code></pre>
+<pre><code>## # A tibble: 12 × 2
+##    region                       n
+##    &lt;chr&gt;                    &lt;int&gt;
+##  1 Scotland                    97
+##  2 London                      39
+##  3 West Midlands               35
+##  4 South East                  34
+##  5 South West                  30
+##  6 East of England             26
+##  7 North East                  25
+##  8 North West                  21
+##  9 Yorkshire and the Humber    21
+## 10 East Midlands                9
+## 11 Northern Ireland             9
+## 12 Wales                        2</code></pre>
 </div>
 <div id="exercise-b." class="section level3">
 <h3>Exercise b.</h3>
@@ -388,7 +404,19 @@ the data set by <code>region</code>.</em></p>
 <code>setting</code>.</em></p>
 <pre class="r"><code># Delete the comment &#39;#&#39; symbol at the start of the next line and complete the code.
 
-#visitors %&gt;% count(_____, _____)</code></pre>
+visitors %&gt;% count(admission, setting, sort = TRUE)</code></pre>
+<pre><code>## # A tibble: 9 × 3
+##   admission setting     n
+##   &lt;chr&gt;     &lt;chr&gt;   &lt;int&gt;
+## 1 Members   M         106
+## 2 Free      I          77
+## 3 Members   O          53
+## 4 Free      O          43
+## 5 Members   I          23
+## 6 Charged   I          21
+## 7 Charged   M          12
+## 8 Free      M           8
+## 9 Charged   O           5</code></pre>
 </div>
 </div>
 <div id="question-2" class="section level2">
