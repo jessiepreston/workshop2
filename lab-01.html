@@ -421,7 +421,7 @@ visitors %&gt;% count(admission, setting, sort = TRUE)</code></pre>
 </div>
 <div id="question-2" class="section level2">
 <h2>Question 2</h2>
-<p><em>What are the variable data types?</em></p>
+<p><em>What are the variable data types? character and numeric</em></p>
 <pre class="r"><code>class(visitors$n_2022)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <pre class="r"><code>visitors %&gt;% summarise_all(class)</code></pre>
@@ -432,8 +432,8 @@ visitors %&gt;% count(admission, setting, sort = TRUE)</code></pre>
 </div>
 <div id="question-3" class="section level2">
 <h2>Question 3</h2>
-<p><em>Which attraction had the most number of visitors in
-2022?</em></p>
+<p><em>Which attraction had the most number of visitors in 2022? The
+Crown Estate, Windsor Great Park</em></p>
 <pre class="r"><code>visitors %&gt;% arrange(desc(n_2022))</code></pre>
 <pre><code>## # A tibble: 348 × 6
 ##    attraction                             n_2021 n_2022 admission setting region
@@ -451,16 +451,32 @@ visitors %&gt;% count(admission, setting, sort = TRUE)</code></pre>
 ## # ℹ 338 more rows</code></pre>
 <div id="exercise-c." class="section level3">
 <h3>Exercise c.</h3>
-<p><em>What are the top 10 most visited attractions in 2021?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  arrange(____(____)) %&gt;%
-#  head(n = ____)</code></pre>
+<p><em>What are the top 10 most visited attractions in 2021? Crown
+Estate, Royal Botanic Gardens Kew, Natural History Museum, RHS Garden
+Wisley, The British Museum, Tate Modern, Somerset House, Science
+Museums, Jeskyns Community Woodland, V&amp;A South Kensington.</em></p>
+<pre class="r"><code>visitors %&gt;% 
+  arrange(desc(n_2021)) %&gt;%
+  head(n = 10)</code></pre>
+<pre><code>## # A tibble: 10 × 6
+##    attraction                             n_2021 n_2022 admission setting region
+##    &lt;chr&gt;                                   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; 
+##  1 The Crown Estate, Windsor Great Park   5.40e6 5.64e6 Free      O       South…
+##  2 Royal Botanic Gardens Kew              1.96e6 1.96e6 Members   M       London
+##  3 Natural History Museum (South Kensing… 1.57e6 4.65e6 Free      I       London
+##  4 RHS Garden Wisley                      1.41e6 1.49e6 Members   O       South…
+##  5 The British Museum                     1.33e6 4.10e6 Free      I       London
+##  6 Tate Modern                            1.16e6 3.88e6 Free      I       London
+##  7 Somerset House                         9.85e5 2.35e6 Free      M       London
+##  8 Science Museum                         9.56e5 2.33e6 Free      I       London
+##  9 Jeskyns Community Woodland             8.79e5 4.47e5 Free      O       South…
+## 10 V&amp;A South Kensington                   8.58e5 2.37e6 Free      I       London</code></pre>
 </div>
 </div>
 <div id="question-4" class="section level2">
 <h2>Question 4</h2>
 <p><em>What is the admission charge for the
-<code>&quot;National Museum of Scotland&quot;</code>?</em></p>
+<code>&quot;National Museum of Scotland&quot;</code>? Free</em></p>
 <pre class="r"><code>visitors %&gt;% filter(attraction == &quot;National Museum of Scotland&quot;)</code></pre>
 <pre><code>## # A tibble: 1 × 6
 ##   attraction                  n_2021  n_2022 admission setting region  
@@ -468,16 +484,25 @@ visitors %&gt;% count(admission, setting, sort = TRUE)</code></pre>
 ## 1 National Museum of Scotland 660741 1973751 Free      I       Scotland</code></pre>
 <div id="exercise-d." class="section level3">
 <h3>Exercise d.</h3>
-<p><em>Which attraction had exactly 565,772 visitors in 2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% filter(___ == ____)</code></pre>
+<p><em>Which attraction had exactly 565,772 visitors in 2022? Knowsley
+Safari and Knowsley Hall</em></p>
+<pre class="r"><code>visitors %&gt;% filter(n_2022 == 565772)</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   attraction                        n_2021 n_2022 admission setting region    
+##   &lt;chr&gt;                              &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     
+## 1 Knowsley Safari and Knowsley Hall     NA 565772 Members   M       North West</code></pre>
 </div>
 <div id="exercise-e." class="section level3">
 <h3>Exercise e.</h3>
-<p><em>How many attraction had more than 1 million visitors in
-2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  filter(____) %&gt;%
-#  count()</code></pre>
+<p><em>How many attraction had more than 1 million visitors in 2022?
+22</em></p>
+<pre class="r"><code>visitors %&gt;% 
+  filter(n_2022 &gt; 1000000) %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1    22</code></pre>
 </div>
 </div>
 <div id="question-5" class="section level2">
@@ -485,7 +510,7 @@ visitors %&gt;% count(admission, setting, sort = TRUE)</code></pre>
 <p><em>How many <code>&quot;O&quot;</code>utside attractions are there in the
 <code>&quot;Yorkshire and the Humber&quot;</code> region that gives
 <code>&quot;Members&quot;</code> free admission, which had more than 100,000
-visitors in 2022?</em></p>
+visitors in 2022? 3</em></p>
 <pre class="r"><code>visitors %&gt;%
   filter(
     setting == &quot;O&quot;,
@@ -501,21 +526,29 @@ visitors in 2022?</em></p>
 <div id="exercise-f." class="section level3">
 <h3>Exercise f.</h3>
 <p><em>How many attractions had between 50,000 and 100,000 visitors in
-2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  ____(
-#    ______,
-#    ______ ) %&gt;%
-#  count()</code></pre>
+2022? 50</em></p>
+<pre class="r"><code> visitors %&gt;%
+  filter(
+    n_2022 &gt; 50000,
+    n_2022 &lt; 100000) %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1    50</code></pre>
 </div>
 <div id="exercise-g." class="section level3">
 <h3>Exercise g.</h3>
 <p><em>How many regions have more than 50 tourist attraction in the data
-set? (Hint: You will need to tabulate the data before
-filtering.)</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  _____(region) %&gt;%
-#  filter(______)</code></pre>
+set? (Hint: You will need to tabulate the data before filtering.)
+Scotland</em></p>
+<pre class="r"><code>visitors %&gt;% 
+  count(region) %&gt;%
+  filter(n &gt; 50)</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   region       n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 Scotland    97</code></pre>
 </div>
 </div>
 </div>
@@ -538,18 +571,33 @@ attractions?</em></p>
 <h3>Exercise h.</h3>
 <p><em>Perform the same calculation for the 2021 admissions
 data.</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  ______(
-#    __________,
-#    __________
-#  )</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+  summarise(
+    mean_2021 = mean(n_2021),
+    med_2021 = median(n_2021)
+  )</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   mean_2021 med_2021
+##       &lt;dbl&gt;    &lt;dbl&gt;
+## 1        NA       NA</code></pre>
 <p>All values in the output are <code>NA</code>!</p>
 </div>
 <div id="exercise-i." class="section level3">
 <h3>Exercise i.</h3>
 <p><em>What does <code>NA</code> stand for and why are you getting this
 as your answer to the previous question.</em></p>
-<p><strong>Write your answer here</strong></p>
+<p><strong>NA stands for Not Available, I’m getting this for the
+previous answer because not every value of n_2021 is numeric, some are
+character</strong></p>
+<pre class="r"><code>visitors %&gt;% 
+  summarise(
+    mean_2021 = mean(n_2021, na.rm = TRUE),
+    med_2021 = median(n_2021, na.rm = TRUE)
+  )</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   mean_2021 med_2021
+##       &lt;dbl&gt;    &lt;dbl&gt;
+## 1   232431.   129829</code></pre>
 </div>
 <div id="exercise-j." class="section level3">
 <h3>Exercise j.</h3>
@@ -557,7 +605,19 @@ as your answer to the previous question.</em></p>
 <code>median()</code> commands to see what the input argument
 <code>na.rm</code> does. Edit your code from exercise h so that it
 computes the summary statistics where data is available.</em></p>
-<p><strong>Write your answer here</strong></p>
+<p><strong>ra.rm removes all ‘NA’ values from calculations so that a
+numeric result can be outputted</strong></p>
+<pre class="r"><code>visitors %&gt;% 
+  summarise(
+    mean_2021 = mean(n_2021, na.rm = TRUE),
+    med_2021 = median(n_2021, na.rm = TRUE)
+  )</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   mean_2021 med_2021
+##       &lt;dbl&gt;    &lt;dbl&gt;
+## 1   232431.   129829</code></pre>
+<pre class="r"><code>TRUE|NA</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
 <div id="question-7" class="section level2">

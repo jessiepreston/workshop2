@@ -53,7 +53,7 @@ visitors %>% count(admission, setting, sort = TRUE)
 
 ## Question 2
 
-_What are the variable data types?_
+_What are the variable data types? character and numeric_
 
 ```{r Q2_part1}
 class(visitors$n_2022)
@@ -67,7 +67,7 @@ visitors %>% summarise_all(class)
 
 ## Question 3
 
-_Which attraction had the most number of visitors in 2022?_
+_Which attraction had the most number of visitors in 2022? The Crown Estate, Windsor Great Park_
 
 ```{r Q3}
 visitors %>% arrange(desc(n_2022))
@@ -75,16 +75,16 @@ visitors %>% arrange(desc(n_2022))
 
 ### Exercise c.
 
-_What are the top 10 most visited attractions in 2021?_
+_What are the top 10 most visited attractions in 2021? Crown Estate, Royal Botanic Gardens Kew, Natural History Museum, RHS Garden Wisley, The British Museum, Tate Modern, Somerset House, Science Museums, Jeskyns Community Woodland, V&A South Kensington._
 ```{r Ex_c}
-#visitors %>% 
-#  arrange(____(____)) %>%
-#  head(n = ____)
+visitors %>% 
+  arrange(desc(n_2021)) %>%
+  head(n = 10)
 ```
 
 ## Question 4
 
-_What is the admission charge for the `"National Museum of Scotland"`?_
+_What is the admission charge for the `"National Museum of Scotland"`? Free_
 
 ```{r Q4}
 visitors %>% filter(attraction == "National Museum of Scotland")
@@ -93,25 +93,25 @@ visitors %>% filter(attraction == "National Museum of Scotland")
 
 ### Exercise d.
 
-_Which attraction had exactly 565,772 visitors in 2022?_
+_Which attraction had exactly 565,772 visitors in 2022? Knowsley Safari and Knowsley Hall_
 
 ```{r Ex_d}
-#visitors %>% filter(___ == ____)
+visitors %>% filter(n_2022 == 565772)
 ```
 
 ### Exercise e.
 
-_How many attraction had more than 1 million visitors in 2022?_
+_How many attraction had more than 1 million visitors in 2022? 22_
 
 ```{r Ex_e}
-#visitors %>% 
-#  filter(____) %>%
-#  count()
+visitors %>% 
+  filter(n_2022 > 1000000) %>%
+  count()
 ```
 
 ## Question 5
 
-_How many `"O"`utside attractions are there in the `"Yorkshire and the Humber"` region that gives `"Members"` free admission, which had more than 100,000 visitors in 2022?_
+_How many `"O"`utside attractions are there in the `"Yorkshire and the Humber"` region that gives `"Members"` free admission, which had more than 100,000 visitors in 2022? 3_
 
 ```{r Q5}
 visitors %>%
@@ -126,24 +126,24 @@ visitors %>%
 
 ### Exercise f.
 
-_How many attractions had between 50,000 and 100,000 visitors in 2022?_
+_How many attractions had between 50,000 and 100,000 visitors in 2022? 50_
 
 ```{r Ex_f}
-#visitors %>% 
-#  ____(
-#    ______,
-#    ______ ) %>%
-#  count()
+ visitors %>%
+  filter(
+    n_2022 > 50000,
+    n_2022 < 100000) %>%
+  count()
 ```
 
 ### Exercise g.
 
-_How many regions have more than 50 tourist attraction in the data set? (Hint: You will need to tabulate the data before filtering.)_
+_How many regions have more than 50 tourist attraction in the data set? (Hint: You will need to tabulate the data before filtering.) Scotland_
 
 ```{r Ex_g}
-#visitors %>% 
-#  _____(region) %>%
-#  filter(______)
+visitors %>% 
+  count(region) %>%
+  filter(n > 50)
 ```
 
 
@@ -168,11 +168,11 @@ visitors %>%
 _Perform the same calculation for the 2021 admissions data._
 
 ```{r Ex_h}
-#visitors %>% 
-#  ______(
-#    __________,
-#    __________
-#  )
+visitors %>% 
+  summarise(
+    mean_2021 = mean(n_2021),
+    med_2021 = median(n_2021)
+  )
 ```
 
 All values in the output are `NA`!
@@ -181,18 +181,31 @@ All values in the output are `NA`!
 
 _What does `NA` stand for and why are you getting this as your answer to the previous question._
 
-**Write your answer here**
+**NA stands for Not Available, I'm getting this for the previous answer because not every value of n_2021 is numeric, some are character**
 
-
+```{r Ex_i}
+visitors %>% 
+  summarise(
+    mean_2021 = mean(n_2021, na.rm = TRUE),
+    med_2021 = median(n_2021, na.rm = TRUE)
+  )
+```
 
 
 ### Exercise j.
 
 _Look at the help pages for the `mean()` and `median()` commands to see what the input argument `na.rm` does. Edit your code from exercise h so that it computes the summary statistics where data is available._
 
-**Write your answer here**
+**ra.rm removes all 'NA' values from calculations so that a numeric result can be outputted**
 
-
+```{r Ex_j}
+visitors %>% 
+  summarise(
+    mean_2021 = mean(n_2021, na.rm = TRUE),
+    med_2021 = median(n_2021, na.rm = TRUE)
+  )
+TRUE|NA
+```
 
 
 ## Question 7
